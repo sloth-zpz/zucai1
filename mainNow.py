@@ -40,6 +40,7 @@ def readHtml():
     aa = root.xpath("//tr[@fid]")
     for data in aa:
         try:
+            print(data.xpath('./td/span[@class="red"]/text()'))
             if data.xpath('./td/div[@class="pk"]/a/text()')[1] in pankou1:
                 aaaa, bbbb = goal_is_who("http://live.500.com/detail.php?fid="+data.xpath('./@fid')[0]+"&r=1")
                 if '主队' != aaaa:
