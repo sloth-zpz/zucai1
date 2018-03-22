@@ -7,10 +7,10 @@ pankou1 = set(['平手','平手/半球','半球','半球/一球','一球','一�
 pankou2 = set(['受平手/半球','受半球','受半球/一球','受一球','受一球/球半','受球半','受球半/两球'])
 
 
-url="http://live.500.com/2h1.php"
+url="http://live.500.com/?e=2018-03-21"
 #headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'}
 
-itchat.auto_login(hotReload=True)
+#itchat.auto_login(hotReload=True)
 
 #user = itchat.search_friends(name=u'自然醒')[0]
 
@@ -36,21 +36,23 @@ def goal_is_who(url):
 def readHtml():
     page = request.Request(url)
     page_info = request.urlopen(page).read().decode("gbk", 'ignore')
-    #print(page_info)
     root = etree.HTML(page_info)
-    aa = root.xpath("//tr[@fid]")
+    aa = root.xpath("//tr[@yy]")
     for data in aa:
         try:
-            if data.xpath('./td/span[@class="red"]/text()')[0] != '完':
+            ############################完场统计###################################
+            #if data.xpath('./td/span[@class="red"]/text()')[0] == '完':
+            ############################正在进行的比赛#############################
+            if len(data.xpath('./td/span[@class="red"]/text()')) == 0:
                 jicaiID = data.xpath('./td/text()')[0]
-                num = data.xpath('./@fid')[0]
+                num = data.xpath('./@id')[0][1:]
                 duiwu = data.xpath('./@gy')[0]
                 num_zhu = data.xpath('./td/div[@class="pk"]/a/text()')[0]
                 num_ke = data.xpath('./td/div[@class="pk"]/a/text()')[2]
                 pankou = data.xpath('./td/div[@class="pk"]/a/text()')[1]
                 if data.xpath('./td/div[@class="pk"]/a/text()')[1] in pankou1:
                     aaaa, bbbb = goal_is_who(
-                        "http://live.500.com/detail.php?fid="+data.xpath('./@fid')[0]+"&r=1")
+                        "http://live.500.com/detail.php?fid="+num+"&r=1")
                     if '主队' != aaaa:
                         if int(bbbb) <= 45:
                             print('*************重点比赛***************')
@@ -113,5 +115,5 @@ readHtml()
 while 1==1:
     time.sleep(second);
     readHtml()
-    #itchat.send_msg("============================", "filehelper")
+    itchat.send_msg("============================", "filehelper")
     # user.send("============================")
