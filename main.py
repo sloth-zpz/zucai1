@@ -7,12 +7,12 @@ pankou1 = set(['平手','平手/半球','半球','半球/一球','一球','一�
 pankou2 = set(['受平手/半球','受半球','受半球/一球','受一球','受一球/球半','受球半','受球半/两球'])
 
 
-url="http://live.500.com/?e=2018-03-21"
-#headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'}
+url="http://live.500.com/2h1.php"
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'}
 
-#itchat.auto_login(hotReload=True)
+itchat.auto_login(hotReload=True)
 
-#user = itchat.search_friends(name=u'自然醒')[0]
+user = itchat.search_friends(name=u'自然醒')[0]
 
 def goal_is_who(url):
     page = request.Request(url)
@@ -70,11 +70,11 @@ def readHtml():
                                             "比分:" + num_zhu + "-" + num_ke+"\n"
                                             +'第一个进球时间' + bbbb+"(客队)", "filehelper")
 
-                            # user.send("**********" + jicaiID + "**********" + "\n"
-                            #                 + duiwu + "\n"
-                            #                 + "盘口:" + pankou + "\n" +
-                            #                 "比分:" + num_zhu + "-" + num_ke + "\n"
-                            #                 + '第一个进球时间' + bbbb + "(客队)")
+                            user.send("**********" + jicaiID + "**********" + "\n"
+                                            + duiwu + "\n"
+                                            + "盘口:" + pankou + "\n" +
+                                            "比分:" + num_zhu + "-" + num_ke + "\n"
+                                            + '第一个进球时间' + bbbb + "(客队)")
                             print("==============================================================================")
                 if data.xpath('./td/div[@class="pk"]/a/text()')[1] in pankou2:
                     aaaa, bbbb = goal_is_who(
@@ -96,11 +96,11 @@ def readHtml():
                                             "比分:" + num_zhu + "-" + num_ke + "\n"
                                             + '第一个进球时间' + bbbb + "(主队)", "filehelper")
 
-                            # user.send("**********" + jicaiID + "**********" + "\n"
-                            #                 + duiwu + "\n"
-                            #                 + "盘口:" + pankou + "\n" +
-                            #                 "比分:" + num_zhu + "-" + num_ke + "\n"
-                            #                 + '第一个进球时间' + bbbb + "(客队)")
+                            user.send("**********" + jicaiID + "**********" + "\n"
+                                            + duiwu + "\n"
+                                            + "盘口:" + pankou + "\n" +
+                                            "比分:" + num_zhu + "-" + num_ke + "\n"
+                                            + '第一个进球时间' + bbbb + "(客队)")
                             print("==============================================================================")
 
         except IndexError as e:
@@ -116,4 +116,4 @@ while 1==1:
     time.sleep(second);
     readHtml()
     itchat.send_msg("============================", "filehelper")
-    # user.send("============================")
+    user.send("============================")

@@ -9,7 +9,7 @@ url="http://live.500.com/wanchang.php"
 
 def goal_is_who(url):
     page = request.Request(url)
-    page_info = request.urlopen(page).read().decode("gbk", 'ignore')
+    page_info = request.urlopen(page).read().decode("gb2312", 'ignore')
     root = etree.HTML(page_info)
     aa = root.xpath('//table[@class="mtable"]//tr')
     list=[]
@@ -28,7 +28,7 @@ def goal_is_who(url):
 
 def readHtml():
     page = request.Request(url)
-    page_info = request.urlopen(page).read().decode("gbk", 'ignore')
+    page_info = request.urlopen(page).read().decode("gb2312", 'ignore')
     #print(page_info)
     root = etree.HTML(page_info)
     aa = root.xpath("//tr[@yy]")
