@@ -16,6 +16,7 @@ headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
 itchat.auto_login(hotReload=True)
 
 user = itchat.search_friends(name=u'自然醒')[0]
+user1 = itchat.search_friends(name=u'薛昊')[0]
 
 def goal_is_who(url):
     page = request.Request(url)
@@ -61,9 +62,9 @@ def readHtml():
     for data in aa:
         try:
             ############################完场统计###################################
-            if data.xpath('./td/span[@class="red"]/text()')[0] == '完':
+            #if data.xpath('./td/span[@class="red"]/text()')[0] == '完':
             ############################正在进行的比赛#############################
-            #if len(data.xpath('./td/span[@class="red"]/text()')) == 0:
+            if len(data.xpath('./td/span[@class="red"]/text()')) == 0:
                 jicaiID = data.xpath('./td/text()')[0]
                 num = data.xpath('./@id')[0][1:]
                 duiwu = data.xpath('./@gy')[0]
@@ -85,20 +86,12 @@ def readHtml():
                             print('第一个进球时间' + bbbb)
 
                             if insert_recode(cursor,num, jicaiID, duiwu, num_zhu, num_ke, pankou,str_goal):
-
-                                itchat.send_msg("**********" + jicaiID + "**********"+"\n"
-                                            +duiwu+"\n"
-                                            +"盘口:" + pankou+"\n"+
-                                            "(客队先进球)"+"\n"+
-                                            str_goal+"\n"+
-                                            "目前"+tongji.tongji(int(num_zhu),int(num_ke),pankou)+"手",
-                                            "filehelper")
-
-                            # user.send("**********" + jicaiID + "**********" + "\n"
-                            #                 + duiwu + "\n"
-                            #                 + "盘口:" + pankou + "\n" +
-                            #                 "比分:" + num_zhu + "-" + num_ke + "\n"
-                            #                 + '第一个进球时间' + bbbb + "(客队)")
+                                message = "**********" + jicaiID + "**********" + "\n"+duiwu + "\n"+\
+                                          "盘口:" + pankou + "\n" +"(客队先进球)" + "\n" +str_goal + "\n"+\
+                                          "目前" + str(tongji.tongji(int(num_zhu), int(num_ke), pankou)) + "手"
+                                itchat.send_msg(message,"filehelper")
+                                user.send(message)
+                                user1.send(message)
                             print("==============================================================================")
                 if data.xpath('./td/div[@class="pk"]/a/text()')[1] in pankou2:
                     aaaa, bbbb,str_goal = goal_is_who(
@@ -115,20 +108,12 @@ def readHtml():
                             print('第一个进球时间' + bbbb)
 
                             if insert_recode(cursor,num, jicaiID, duiwu, num_zhu, num_ke, pankou,str_goal):
-                                itchat.send_msg("**********" + jicaiID + "**********" + "\n"
-                                                + duiwu + "\n"
-                                                + "盘口:" + pankou + "\n" +
-                                                "(主队先进球)" + "\n" +
-                                                str_goal+
-                                                "目前"+tongji.tongji(int(num_zhu),int(num_ke),pankou)+"手"
-                                                , "filehelper")
-
-                            user.send("**********" + jicaiID + "**********" + "\n"
-                                                + duiwu + "\n"
-                                                + "盘口:" + pankou + "\n" +
-                                                "(主队先进球)" + "\n" +
-                                                str_goal+
-                                                "目前"+tongji.tongji(int(num_zhu),int(num_ke),pankou)+"手")
+                                message = "**********" + jicaiID + "**********" + "\n" + duiwu + "\n" + \
+                                          "盘口:" + pankou + "\n" + "(主队先进球)" + "\n" + str_goal + "\n" + \
+                                          "目前" + str(tongji.tongji(int(num_zhu), int(num_ke), pankou)) + "手"
+                                itchat.send_msg(message, "filehelper")
+                                user.send(message)
+                                user1.send(message)
                             print("==============================================================================")
 
         except IndexError as e:
@@ -156,10 +141,11 @@ def insert_recode(cursor,num,jicaiID,duiwu,num_zhu,num_ke,pankou,str_goal):
         else:
             zhu = results[0][3]
             ke =results[0][4]
-            if (zhu !=num_zhu | ke != num_ke):
+            if (zhu !=num_zhu) | (ke != num_ke):
                 sql = "UPDATE gunqiu SET goal_z = '%d',goal_k = '%d',goal_detail='%s' WHERE id = '%s'" % (num_zhu,num_ke,str_goal,num)
                 cursor.execute(sql)
-            return True
+                return True
+            return False
 
     except Exception as e:
         print(e)
@@ -172,5 +158,5 @@ readHtml()
 while 1==1:
     time.sleep(second);
     readHtml()
-    itchat.send_msg("============================", "filehelper")
-    #user.send("============================")
+    # itchat.send_msg("============================", "filehelper")
+    # user.send("============================")
