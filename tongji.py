@@ -1,5 +1,17 @@
 import pymysql
 
+import numpy as np
+import pandas as pd
+from scipy import stats,integrate
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+
+
+
+import seaborn as sns
+sns.set(color_codes=True)
+
 def tongji(zhu,ke,pankou):
     if pankou == '平手':
         if zhu - ke >= 0:
@@ -114,32 +126,40 @@ def tongji(zhu,ke,pankou):
             return -1
 
 
-# # 打开数据库连接
-# db = pymysql.connect("localhost", "root", "", "gunxifacai",charset="utf8")
-#
-# # 使用cursor()方法获取操作游标
-# cursor = db.cursor()
-#
-# # SQL 查询语句
-# sql = "select * from gunqiu"
-# try:
-#     # 执行SQL语句
-#     cursor.execute(sql)
-#     # 获取所有记录列表
-#     results = cursor.fetchall()
-#     aaa = 0
-#     for row in results:
-#         zhu = row[3]
-#         ke = row[4]
-#         pankou = row[5]
-#         aaa += tongji(zhu,ke,pankou)
-#         # 打印结果
-#         print(tongji(zhu,ke,pankou))
-#     print(aaa)
-# except:
-#     print("Error: unable to fetch data")
-#
-# # 关闭数据库连接
-# db.close()
+def update_time(db,coursor):
+    sql = "select id,first_goal_time,win from gunqiu where first_goal_time<=45 and game_name='葡超'"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    for row in results:
+        print("aaa")
+
+
+def first_goal_time_relation(db,cursor):
+    sql = "select first_goal_time,win from gunqiu where first_goal_time<=45 and date<=20180605 and date>=20170605"
+    cursor.execute(sql)
+    list = []
+    results = cursor.fetchall()
+    for row in results:
+        list.append([row[0],row[1]])
+    # 关闭数据库连接
+    db.close()
+    x = np.array(list)
+    sns.kdeplot(x, shade=True)
+    plt.show()
+    print(len(list))
+
+if __name__ == '__main__':
+    # 打开数据库连接
+    db = pymysql.connect("localhost", "root", "", "gunxifacai", charset="utf8")
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    try:
+        first_goal_time_relation(db,cursor)
+    except:
+        print("Error: unable to fetch data")
+
+
 
 

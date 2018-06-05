@@ -5,11 +5,11 @@ pankou1 = set(['平手','平手/半球','半球','半球/一球','一球','一�
 pankou2 = set(['受平手/半球','受半球','受半球/一球','受一球','受一球/球半','受球半','受球半/两球'])
 
 
-url="http://live.500.com/wanchang.php"
+url="http://live.500.com/2h1.php"
 
 def goal_is_who(url):
     page = request.Request(url)
-    page_info = request.urlopen(page).read().decode("gb2312", 'ignore')
+    page_info = request.urlopen(page,).read().decode("gbk", 'ignore')
     root = etree.HTML(page_info)
     aa = root.xpath('//table[@class="mtable"]//tr')
     list=[]
