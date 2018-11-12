@@ -178,7 +178,7 @@ second = sleeptime(0,0,60);
 # print("4、买前看五分钟比赛数据")
 # readHtml()
 
-for date in getBetweenDay('2018-11-01'):
+for date in getBetweenDay('2018-10-01'):
     url = "http://live.500.com/?e="+date
     mysql_date = datetime.datetime.strptime(date, "%Y-%m-%d")
     date_int = int(mysql_date.strftime("%Y%m%d"))
