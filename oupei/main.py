@@ -1,4 +1,4 @@
-from new import game_list
+from oupei import game_list
 import pymysql
 import pickle
 import datetime

@@ -1,15 +1,12 @@
 from urllib import request
 import io
 import gzip
-import time
-import random
 
 __all__ = [
     'get_content_by_url'
 ]
 
 def get_content_by_url(url):
-    time.sleep(random.random)
     page = request.Request(url)
     headers = {
         'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36'

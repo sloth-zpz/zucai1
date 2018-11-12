@@ -115,9 +115,9 @@ def readHtml(url_home,date):
                                           "盘口:" + pankou + "\n" +"(客队先进球)" + "\n" +str_goal + "\n"+\
                                           "目前" + str(tongji.tongji(int(num_zhu), int(num_ke), pankou)) + "手"
                                 #itchat.send_msg(message,"filehelper")
-                                # print('*************重点比赛***************')
-                                # print(message)
-                            #print("==============================================================================")
+                                print('*************重点比赛***************')
+                                print(message)
+                            print("==============================================================================")
                 if data.xpath('./td/div[@class="pk"]/a/text()')[1] in pankou2:
                     aaaa, bbbb,str_goal = goal_is_who(
                         "http://live.500.com/detail.php?fid="+data.xpath('./@fid')[0]+"&r=1")
@@ -128,9 +128,9 @@ def readHtml(url_home,date):
                                           "盘口:" + pankou + "\n" + "(主队先进球)" + "\n" + str_goal + "\n" + \
                                           "目前" + str(tongji.tongji(int(num_zhu), int(num_ke), pankou)) + "手"
                                 #itchat.send_msg(message, "filehelper")
-                                # print('*************重点比赛***************')
-                                # print(message)
-                            #print("==============================================================================")
+                                print('*************重点比赛***************')
+                                print(message)
+                            print("==============================================================================")
 
         except IndexError as e:
             #print("==============================================================================")
@@ -178,7 +178,7 @@ second = sleeptime(0,0,60);
 # print("4、买前看五分钟比赛数据")
 # readHtml()
 
-for date in getBetweenDay('2018-04-29'):
+for date in getBetweenDay('2018-11-01'):
     url = "http://live.500.com/?e="+date
     mysql_date = datetime.datetime.strptime(date, "%Y-%m-%d")
     date_int = int(mysql_date.strftime("%Y%m%d"))

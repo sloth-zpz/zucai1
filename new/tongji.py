@@ -1,23 +1,91 @@
-import pymysql
+def tongji_daxiao(num,pankou):
+    if pankou == '2/2.5':
+        if num < 2:
+            return -1
+        if num == 2:
+            return -0.5
+        if num > 2:
+            return 1
+    if pankou == '2.5':
+        if num <= 2:
+            return -1
+        if num > 2:
+            return 1
+    if pankou == '2.5/3':
+        if num < 3:
+            return -1
+        if num == 3:
+            return 0.5
+        if num > 3:
+            return 1
+    if pankou == '3':
+        if num < 3:
+            return -1
+        if num == 3:
+            return 0
+        if num > 3:
+            return 1
 
-import numpy as np
-import pandas as pd
-from scipy import stats,integrate
-import matplotlib.pyplot as plt
-import warnings
-warnings.filterwarnings('ignore')
+    if pankou == '1/1.5':
+        if num < 1:
+            return -1
+        if num == 1:
+            return -0.5
+        if num > 1:
+            return 1
+    if pankou == '1.5':
+        if num <= 1:
+            return -1
+        if num > 1:
+            return 1
+    if pankou == '1.5/2':
+        if num < 2:
+            return -1
+        if num == 2:
+            return 0.5
+        if num > 2:
+            return 1
+    if pankou == '2':
+        if num < 2:
+            return -1
+        if num == 2:
+            return 0
+        if num > 2:
+            return 1
 
+    if pankou == '3/3.5':
+        if num < 3:
+            return -1
+        if num == 3:
+            return -0.5
+        if num > 3:
+            return 1
+    if pankou == '3.5':
+        if num <= 3:
+            return -1
+        if num > 3:
+            return 1
+    if pankou == '3.5/4':
+        if num < 4:
+            return -1
+        if num == 4:
+            return 0.5
+        if num > 4:
+            return 1
+    if pankou == '4':
+        if num < 4:
+            return -1
+        if num == 4:
+            return 0
+        if num > 4:
+            return 1
 
-
-import seaborn as sns
-sns.set(color_codes=True)
-
-def tongji(zhu,ke,pankou):
+def tongji_yapan(zhu,ke,pankou):
     if pankou == '平手':
         if zhu - ke >= 0:
             return 1
         if zhu - ke == -1:
-            return 0
+            return 1
         if zhu - ke < -1:
             return -1
 
@@ -25,7 +93,7 @@ def tongji(zhu,ke,pankou):
         if zhu - ke >= 0:
             return 1
         if zhu - ke == -1:
-            return -0.5
+            return -1
         if zhu - ke < -1:
             return -1
 
@@ -39,7 +107,7 @@ def tongji(zhu,ke,pankou):
         if zhu - ke >= 1:
             return 1
         if zhu - ke == 0:
-            return 0.5
+            return 1
         if zhu - ke < 0:
             return -1
 
@@ -47,7 +115,7 @@ def tongji(zhu,ke,pankou):
         if zhu - ke >= 1:
             return 1
         if zhu - ke == 0:
-            return 0
+            return 1
         if zhu - ke < 0:
             return -1
 
@@ -55,7 +123,7 @@ def tongji(zhu,ke,pankou):
         if zhu - ke >= 1:
             return 1
         if zhu - ke == 0:
-            return -0.5
+            return -1
         if zhu - ke < 0:
             return -1
 
@@ -69,7 +137,7 @@ def tongji(zhu,ke,pankou):
         if zhu - ke >= 2:
             return 1
         if zhu - ke == 1:
-            return 0.5
+            return 1
         if zhu - ke < 1:
             return -1
 
@@ -77,7 +145,7 @@ def tongji(zhu,ke,pankou):
         if ke - zhu >= 0:
             return 1
         if ke - zhu == -1:
-            return -0.5
+            return -1
         if ke - zhu < -1:
             return -1
 
@@ -91,7 +159,7 @@ def tongji(zhu,ke,pankou):
         if ke - zhu >= 1:
             return 1
         if ke - zhu == 0:
-            return 0.5
+            return 1
         if ke - zhu < 0:
             return -1
 
@@ -99,7 +167,7 @@ def tongji(zhu,ke,pankou):
         if ke - zhu >= 1:
             return 1
         if ke - zhu == 0:
-            return 0
+            return 1
         if ke - zhu < 0:
             return -1
 
@@ -107,7 +175,7 @@ def tongji(zhu,ke,pankou):
         if ke - zhu >= 1:
             return 1
         if ke - zhu == 0:
-            return -0.5
+            return -1
         if ke - zhu < 0:
             return -1
 
@@ -121,45 +189,6 @@ def tongji(zhu,ke,pankou):
         if ke - zhu >= 2:
             return 1
         if ke - zhu == 1:
-            return 0.5
+            return 1
         if ke - zhu < 1:
             return -1
-
-
-def update_time(db,coursor):
-    sql = "select id,first_goal_time,win from gunqiu where first_goal_time<=45 and game_name='葡超'"
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    for row in results:
-        print("aaa")
-
-
-def first_goal_time_relation(db,cursor):
-    sql = "select first_goal_time,win from gunqiu t where t.game_name='日职'"
-    cursor.execute(sql)
-    list = []
-    results = cursor.fetchall()
-    for row in results:
-        list.append([row[0],row[1]])
-    # 关闭数据库连接
-    db.close()
-    x = np.array(list)
-    sns.kdeplot(x, shade=True)
-    plt.show()
-    print(len(list))
-
-if __name__ == '__main__':
-    # 打开数据库连接
-    db = pymysql.connect("localhost", "root", "", "gunxifacai", charset="utf8")
-
-    # 使用cursor()方法获取操作游标
-    cursor = db.cursor()
-
-    try:
-        first_goal_time_relation(db,cursor)
-    except:
-        print("Error: unable to fetch data")
-
-
-
-

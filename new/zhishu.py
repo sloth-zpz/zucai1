@@ -32,10 +32,11 @@ def get_ouzhi(url):
     ceri_dead_0 = root.xpath('//*[@id="3"]/td[6]/table/tbody/tr[2]/td[3]/text()')[0]
     ouzhi.append([ceri_dead_3, ceri_dead_1, ceri_dead_0])
 
-    for data in ouzhi:
-        ouzhi_str += data[0]+","+data[1]+","+data[2]+"|"
-
-    return ouzhi_str
+    # for data in ouzhi:
+    #     ouzhi_str += data[0]+","+data[1]+","+data[2]+"|"
+    #
+    # return ouzhi_str
+    return ouzhi
 
 def get_yazhi(url):
     content = http_to_char.get_content_by_url(url)
@@ -53,9 +54,10 @@ def get_yazhi(url):
     dead_0 = root.xpath('//*[@id="3"]/td[3]/table/tbody/tr/td[3]/text()')[0]
     yazhi.append([dead_3, dead_1, dead_0])
 
-    for data in yazhi:
-        yazhi_str += data[0]+","+data[1]+","+data[2]+"|"
-    return yazhi_str
+    # for data in yazhi:
+    #     yazhi_str += data[0]+","+data[1]+","+data[2]+"|"
+    # return yazhi_str
+    return yazhi
 
 def get_daxiao(url):
     content = http_to_char.get_content_by_url(url)
@@ -73,9 +75,9 @@ def get_daxiao(url):
     dead_0 = root.xpath('//*[@id="3"]/td[3]/table/tbody/tr/td[3]/text()')[0]
     daxiao.append([dead_3, dead_1, dead_0])
 
-    for data in daxiao:
-        daxiao_str += data[0]+","+data[1]+","+data[2]+"|"
-    return daxiao_str
+    # for data in daxiao:
+    #     daxiao_str += data[0]+","+data[1]+","+data[2]+"|"
+    # return daxiao_str
 
     return daxiao
 

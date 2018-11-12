@@ -12,10 +12,7 @@ def get_game_end(url):
             duiwu = data_game.xpath('./@gy')[0]
             game = str(duiwu).split(',')
             game_name = game[0]
-            if game_name != '世界杯':
-                continue
             changci = data_game.xpath('./td[3]/text()')[0]
-            print(changci)
             zhu_name = game[1]
             ke_name = game[2]
             num_zhu = data_game.xpath('./td/div[@class="pk"]/a/text()')[0]
@@ -28,7 +25,6 @@ def get_game_end(url):
             firt_goal_time = None
             goal_decs = None
             if int(num_zhu)+int(num_ke) != 0:
-                print(num)
                 first_goal_team,firt_goal_time,goal_decs = goal_detail("http://live.500.com/detail.php?fid="+num+"&r=1")
             result.append((num,game_name,changci,zhu_name,ke_name,str_quan,str_ban,num_goal,first_goal_team,firt_goal_time,goal_decs))
     return result
