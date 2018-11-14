@@ -7,6 +7,7 @@ import io
 import gzip
 import datetime
 import playMusic
+import random
 
 import tongji
 
@@ -171,9 +172,7 @@ def insert_recode(cursor,num,jicaiID,game_name,zhu_name,ke_name,first_goal_time,
     except Exception as e:
         print(e)
 
-def sleeptime(hour,min,sec):
-    return hour*3600 + min*60 + sec;
-second = sleeptime(0,0,60);
+
 
 # print("1、阿根廷的联赛不买")
 # print("2、小孩的比赛少买")
@@ -181,15 +180,20 @@ second = sleeptime(0,0,60);
 # print("4、买前看五分钟比赛数据")
 # readHtml()
 
-for date in getBetweenDay('2018-11-13'):
-    url = "http://live.500.com/?e="+date
-    mysql_date = datetime.datetime.strptime(date, "%Y-%m-%d")
-    date_int = int(mysql_date.strftime("%Y%m%d"))
-    print(url)
-    readHtml(url,date_int)
+# for date in getBetweenDay('2018-11-13'):
+#     url = "http://live.500.com/?e="+date
+#     mysql_date = datetime.datetime.strptime(date, "%Y-%m-%d")
+#     date_int = int(mysql_date.strftime("%Y%m%d"))
+#     print(url)
+#     readHtml(url,date_int)
 
-# while 1==1:
-#     time.sleep(second);
-#     readHtml()
+def sleep_random_time():
+
+    return random.random()*120;
+
+while True:
+    time.sleep(sleep_random_time());
+    readHtml('http://live.500.com','')
+    print("+++++++++++++++++++++++++++++++++++++")
     #itchat.send_msg("============================", "filehelper")
     #user.send("============================")
