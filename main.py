@@ -195,5 +195,6 @@ while True:
     time.sleep(sleep_random_time());
     readHtml('http://live.500.com','')
     print("+++++++++++++++++++++++++++++++++++++")
+
     #itchat.send_msg("============================", "filehelper")
     #user.send("============================")
