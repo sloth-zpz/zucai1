@@ -160,9 +160,9 @@ def insert_recode(cursor,num,jicaiID,game_name,zhu_name,ke_name,first_goal_time,
             cursor.execute(sql)
             return True
         else:
-            zhu = results[0][3]
-            ke =results[0][4]
-            if (zhu !=num_zhu) | (ke != num_ke):
+            zhu = results[0][2]
+            ke = results[0][3]
+            if (int(zhu) !=int(num_zhu)) | (int(ke) != int(num_ke)):
                 sql = "UPDATE gunqiu SET goal_z = '%d',goal_k = '%d',goal_detail='%s',first_goal_time='%d',win='%s' WHERE id = '%s'" % (num_zhu,num_ke,str_goal,first_goal_time,win,num)
                 cursor.execute(sql)
                 return True
