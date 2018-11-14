@@ -6,6 +6,7 @@ import time
 import io
 import gzip
 import datetime
+import playMusic
 
 import tongji
 
@@ -117,6 +118,7 @@ def readHtml(url_home,date):
                                 #itchat.send_msg(message,"filehelper")
                                 print('*************重点比赛***************')
                                 print(message)
+                                playMusic.goal_message()
                             print("==============================================================================")
                 if data.xpath('./td/div[@class="pk"]/a/text()')[1] in pankou2:
                     aaaa, bbbb,str_goal = goal_is_who(
@@ -130,6 +132,7 @@ def readHtml(url_home,date):
                                 #itchat.send_msg(message, "filehelper")
                                 print('*************重点比赛***************')
                                 print(message)
+                                playMusic.goal_message()
                             print("==============================================================================")
 
         except IndexError as e:
@@ -178,7 +181,7 @@ second = sleeptime(0,0,60);
 # print("4、买前看五分钟比赛数据")
 # readHtml()
 
-for date in getBetweenDay('2018-10-01'):
+for date in getBetweenDay('2018-11-13'):
     url = "http://live.500.com/?e="+date
     mysql_date = datetime.datetime.strptime(date, "%Y-%m-%d")
     date_int = int(mysql_date.strftime("%Y%m%d"))
