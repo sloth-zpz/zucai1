@@ -27,7 +27,7 @@ def getBetweenDay(begin_date):
     date_list = []
     begin_date = datetime.datetime.strptime(begin_date, "%Y-%m-%d")
     end_date = datetime.datetime.strptime(time.strftime('%Y-%m-%d',time.localtime(time.time())), "%Y-%m-%d")
-    while begin_date <= end_date:
+    while begin_date < end_date:
         date_str = begin_date.strftime("%Y-%m-%d")
         date_list.append(date_str)
         begin_date += datetime.timedelta(days=1)
@@ -180,21 +180,21 @@ def insert_recode(cursor,num,jicaiID,game_name,zhu_name,ke_name,first_goal_time,
 # print("4、买前看五分钟比赛数据")
 # readHtml()
 
-# for date in getBetweenDay('2018-11-13'):
-#     url = "http://live.500.com/?e="+date
-#     mysql_date = datetime.datetime.strptime(date, "%Y-%m-%d")
-#     date_int = int(mysql_date.strftime("%Y%m%d"))
-#     print(url)
-#     readHtml(url,date_int)
+for date in getBetweenDay('2018-11-14'):
+    url = "http://live.500.com/?e="+date
+    mysql_date = datetime.datetime.strptime(date, "%Y-%m-%d")
+    date_int = int(mysql_date.strftime("%Y%m%d"))
+    print(url)
+    readHtml(url,date_int)
 
 def sleep_random_time():
 
     return random.random()*120;
 
-while True:
-    time.sleep(sleep_random_time());
-    readHtml('http://live.500.com','')
-    print("+++++++++++++++++++++++++++++++++++++")
+# while True:
+#     time.sleep(sleep_random_time());
+#     readHtml('http://live.500.com','')
+#     print("+++++++++++++++++++++++++++++++++++++")
 
     #itchat.send_msg("============================", "filehelper")
     #user.send("============================")
